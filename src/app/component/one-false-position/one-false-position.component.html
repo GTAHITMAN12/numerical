@@ -1,0 +1,25 @@
+<div [formGroup]="form" >
+  <label>please in put math function</label>
+  <input type="text" formControlName="function">
+    <table>
+      <thead>
+        <tr><td>start</td><td>stop</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" formControlName="start"></td>
+          <td><input type="number" formControlName="end"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  <button (click)="doit()">submit</button>
+  <table>
+      <tr><th>x</th><th>y</th></tr>
+    <tbody>
+      <tr *ngFor="let item of this.array" >
+        <th>{{item.Xl }}</th>
+        <th>{{item.Xr.toFixed(6) }}</th>
+      </tr>
+    </tbody>
+  </table>

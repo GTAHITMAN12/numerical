@@ -1,0 +1,27 @@
+<p>qin works!</p>
+<div [formGroup]="form" >
+  <label>please in put math function</label><br>
+  function<input type="text" formControlName="function">
+    <table>
+      <thead>
+        <tr><td>total point (->3)</td><td>x0</td><td>x</td><td>x</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" formControlName="round" min="4"></td>
+          <td><input type="number" formControlName="x0"></td>
+          <td><input type="number" formControlName="x"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  <button (click)="cal()">submit</button>
+  <table>
+      <tr><th>fn</th><th>err</th></tr>
+    <tbody>
+      <tr *ngFor="let item of this.array" >
+        <th>{{item.fn}}</th>
+        <th>{{item.error}}%</th>
+      </tr>
+    </tbody>
+  </table>

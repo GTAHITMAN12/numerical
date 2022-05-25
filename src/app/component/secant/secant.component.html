@@ -1,0 +1,30 @@
+<p>secant works!</p>
+<div [formGroup]="form" >
+  <label>please in put math function</label>
+  <input type="text" formControlName="function" onchange="event => setfx(event.target.value)">
+    <table>
+      <thead>
+        <tr><td>x0</td><td>x1</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" formControlName="x0"></td>
+          <td><input type="number" formControlName="x1"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  <button (click)="secant()">submit</button>
+  <table>
+      <tr><th>Iterations</th><th>xm</th><th>fxm</th><th>error</th></tr>
+    <tbody>
+      <tr *ngFor="let item of array" >
+        <th>{{item.i}}</th>
+        <th>{{item.xm}}</th>
+        <th>{{item.fxm}}</th>
+        <th>{{item.error}}</th>
+      </tr>
+    </tbody>
+  </table>
+
+

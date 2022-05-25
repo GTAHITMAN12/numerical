@@ -1,0 +1,27 @@
+<p>newton-raphson works!</p>
+<div [formGroup]="form" >
+  <label>please in put math function</label>
+  <input type="text" formControlName="function" onchange="event => setfx(event.target.value)">
+    <table>
+      <thead>
+        <tr><td>start</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" formControlName="start"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  <button (click)="newton()">submit</button>
+  <table>
+      <tr><th>i</th><th>x</th><th>fx</th><th>error</th></tr>
+    <tbody>
+      <tr *ngFor="let item of array" >
+        <th>{{item.i}}</th>
+        <th>{{item.x}}</th>
+        <th>{{item.fx}}</th>
+        <th>{{item.error}}</th>
+      </tr>
+    </tbody>
+  </table>

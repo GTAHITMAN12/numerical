@@ -1,0 +1,49 @@
+<p>pin works!</p>
+<style>
+  .flex {
+    display: flex;
+    flex-direction: row ;
+    flex-wrap: wrap ;
+  }
+  .flex > div {
+    flex: auto auto auto;
+    width:max-content;
+    box-sizing:auto;
+    border:1px solid black;
+    text-align:center;
+    line-height:20px;
+    padding:5px;
+  }
+  table{
+    size: auto;
+    width: auto;
+  }
+</style>
+<form>
+  <div [formGroup]="form" >
+    <label>please in put math function</label><br>
+    function
+
+    <input type="text" formControlName="function">
+    <select formControlName="number" class="form-control" (change)="onChangeround($event)">
+      <option value=""></option>
+      <option *ngFor="let i of [4,5,6,7,8,9,10]">{{i}}</option>
+    </select><br>
+    <div  class="flex" *ngFor="let xformgroup of xformgroup; let j = index">
+      <div [formGroup]="xformgroup" >
+        x{{j+1}}<input type="number" formControlName="input" /><br>
+      </div>
+    </div>
+    <input type="number" formControlName="x">
+  </div>
+</form>
+  <button (click)="cal()">submit</button>
+  <table>
+      <tr><th>ans</th><th>err</th></tr>
+    <tbody>
+      <tr *ngFor="let item of this.array" >
+        <th>{{item.ans}}</th>
+        <th>{{item.error}}%</th>
+      </tr>
+    </tbody>
+  </table>

@@ -1,0 +1,52 @@
+<p>cramer-rule works!</p>
+<style>
+  .flex {
+    display: flex;
+    flex-direction: row ;
+    flex-wrap: wrap ;
+  }
+  .flex > div {
+    flex: auto auto auto;
+    width:max-content;
+    box-sizing:auto;
+    border:1px solid black;
+    text-align:center;
+    line-height:20px;
+    padding:5px;
+  }
+  table{
+    size: auto;
+    width: auto;
+  }
+</style>
+<form [formGroup]="cramer" (ngSubmit)="cal()">
+  <label>size of matrix(row)</label>
+  <select formControlName="round" class="form-control" (change)="onChangeround($event)">
+    <option value=""></option>
+    <option *ngFor="let i of [2,3,4,5,6,7,8,9,10]">{{i}}</option>
+  </select><br>
+  <label>matrixA</label><br>
+  <div  class="flex" *ngFor="let matrixA of matrixAformgroup; let j = index">
+      <div [formGroup]="matrixA" >
+        <input type="number" formControlName="input" />
+      </div>
+  </div>
+  <label>matrixB</label><br>
+  <div  class="flex" *ngFor="let matrixB of matrixBformgroup; let j = index">
+      <div [formGroup]="matrixB" >
+        <input type="number" formControlName="input" />
+      </div>
+  </div>
+  <div>
+    <button (click)="onSubmit()">submit</button>
+  </div>
+</form>
+<table *ngIf="submit">
+  <thead><th>i</th><th>detAi</th><th>detA</th><th>Ans</th></thead>
+  <tbody>
+      <tr *ngFor="let item of ans">
+       <th>{{item.rowIndex}}</th><th>{{item.upper}}</th><th>{{item.lower}}</th><th>{{item.result}}</th>
+      </tr>
+  </tbody>
+</table>
+

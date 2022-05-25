@@ -1,0 +1,32 @@
+<p>guassseidal works!</p>
+<div [formGroup]="form" >
+  <label>please in put math function</label><br>
+  function 1<input type="text" formControlName="function1">
+  function 2<input type="text" formControlName="function2">
+  function 3<input type="text" formControlName="function3">
+    <table>
+      <thead>
+        <tr><td>x0</td><td>y0</td><td>z0</td><td>divide</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" formControlName="x0"></td>
+          <td><input type="number" formControlName="y0"></td>
+          <td><input type="number" formControlName="z0"></td>
+          <td><input type="number" formControlName="divide"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  <button (click)="guassseidal()">submit</button>
+  <table>
+      <tr><th>iteration</th><th>x</th><th>y</th><th>z</th></tr>
+    <tbody>
+      <tr *ngFor="let item of this.array" >
+        <th>{{item.iteration }}</th>
+        <th>{{item.x1.toFixed(6)}}</th>
+        <th>{{item.y1.toFixed(6)}}</th>
+        <th>{{item.z1.toFixed(6)}}</th>
+      </tr>
+    </tbody>
+  </table>
