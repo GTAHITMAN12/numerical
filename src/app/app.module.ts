@@ -30,6 +30,14 @@ import { QinComponent } from './component/qin/qin.component';
 import { PinComponent } from './component/pin/pin.component';
 import { LilComponent } from './component/lil/lil.component';
 import { QilComponent } from './component/qil/qil.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/authconfig.interceptor.spec';
+import { SigninComponent } from './component/signin/signin.component';
+import { SignupComponent } from './component/signup/signup.component';
+import { UserProfileComponent } from './component/userprofile/userprofile.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +62,11 @@ import { QilComponent } from './component/qil/qil.component';
     QinComponent,
     PinComponent,
     LilComponent,
-    QilComponent
+    QilComponent,
+    SigninComponent,
+    SignupComponent,
+    UserProfileComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -66,8 +78,15 @@ import { QilComponent } from './component/qil/qil.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
+    HttpClientModule,
   ],
-  providers: [],
+  providers:[
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

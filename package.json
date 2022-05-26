@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@nestjs/passport": "^8.2.1",
+    "@nrwl/angular": "^14.1.9",
     "echarts": "^5.3.1",
     "mathjax-angular": "^1.4.2",
     "mathjs": "^10.5.3",
