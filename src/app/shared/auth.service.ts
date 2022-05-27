@@ -1,71 +1,57 @@
 import { Injectable } from '@angular/core';
-import { User } from './datamodel';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-} from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import * as moment from 'moment';
+
+const jwt = new JwtHelperService();
+
+class DecodedToken {
+  exp!: number;
+  username!: string;
+}
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  endpoint: string = 'http://localhost:4000/api/';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
-  constructor(private http: HttpClient, public router: Router) {}
-  // Sign-up
-  signUp(user: User): Observable<any> {
-    let api = `${this.endpoint}/register-user`;
-    return this.http.post(api, user).pipe(catchError(this.handleError));
+
+  private uriseg = 'http://localhost:5000/api/users';
+  private decodedToken;
+
+  constructor(private http: HttpClient) {
+    this.decodedToken = JSON.parse(localStorage.getItem('auth_meta')!) || new DecodedToken();
+   }
+
+  public register(userData: any): Observable<any> {
+    const URI = this.uriseg + '/register';
+    return this.http.post(URI, userData);
   }
-  // Sign-in
-  signIn(user: User) {
-    return this.http
-      .post<any>(`${this.endpoint}/signin`, user)
-      .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
-        this.getUserProfile(res._id).subscribe((res) => {
-          this.currentUser = res;
-          this.router.navigate(['user-profile/' + res.msg._id]);
-        });
-      });
+
+  public login(userData: any): Observable<any> {
+    const URI = this.uriseg + '/login';
+    return this.http.post(URI, userData).pipe(map(token => {
+      return this.saveToken(token);
+    }));
   }
-  getToken() {
-    return localStorage.getItem('access_token');
+
+  private saveToken(token: any): any {
+    this.decodedToken = jwt.decodeToken(token);
+    localStorage.setItem('auth_tkn', token);
+    localStorage.setItem('auth_meta', JSON.stringify(this.decodedToken));
+    return token;
   }
-  get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
-    return authToken !== null ? true : false;
+
+  public logout(): void {
+    localStorage.removeItem('auth_tkn');
+    localStorage.removeItem('auth_meta');
+
+    this.decodedToken = new DecodedToken();
   }
-  doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
-    if (removeToken == null) {
-      this.router.navigate(['log-in']);
-    }
-  }
-  // User profile
-  getUserProfile(id: any): Observable<any> {
-    let api = `${this.endpoint}/user-profile/${id}`;
-    return this.http.get(api, { headers: this.headers }).pipe(
-      map((res) => {
-        return res || {};
-      }),
-      catchError(this.handleError)
-    );
-  }
-  // Error
-  handleError(error: HttpErrorResponse) {
-    let msg = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      msg = error.error.message;
-    } else {
-      // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(msg);
+
+  public isAuthenticated(): boolean {
+    console.log(this.decodedToken.exp);
+    return moment().isBefore(moment.unix(this.decodedToken.exp));
   }
 }

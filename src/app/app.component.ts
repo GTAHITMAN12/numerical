@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
-import { AuthService } from './shared/auth.service';
-
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public authService: AuthService) {}
+  notify!: string;
 
-  logout() {
-    this.authService.doLogout();
+  constructor(private router: Router, private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      const key1 = 'loggedin';
+      if (params[key1] === 'success') {
+        this.notify = 'You have been successfully loggedin. Welcome home';
+      }
+    });
   }
 }

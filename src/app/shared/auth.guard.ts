@@ -1,23 +1,44 @@
+// auth.guard.ts
+
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot,
-UrlTree, CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './../shared/auth.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
+
+import { AuthService } from './auth.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    public authService: AuthService,
-    public router: Router
-  ) { }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedIn !== true) {
-      window.alert("Access not allowed!");
-      this.router.navigate(['log-in'])
+  private url!: string;
+  constructor(private auth: AuthService, private router: Router) { }
+
+  private authState(): boolean {
+    if (this.isLoginOrRegister()) {
+      this.router.navigate(['/']);
+      return false;
     }
     return true;
+  }
+  private notAuthState(): boolean {
+    if (this.isLoginOrRegister()) {
+      return true;
+    }
+    this.router.navigate(['/auth/login']);
+    return false;
+  }
+  private isLoginOrRegister(): boolean {
+    if (this.url.includes('/auth/login') || this.url.includes('/auth/register')) {
+      return true;
+    }
+    return false;
+  }
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+    this.url = state.url;
+    if (this.auth.isAuthenticated()) {
+     return this.authState();
+    }
+    return this.notAuthState();
   }
 }

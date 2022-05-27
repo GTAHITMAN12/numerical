@@ -31,10 +31,12 @@ import { PinComponent } from './component/pin/pin.component';
 import { LilComponent } from './component/lil/lil.component';
 import { QilComponent } from './component/qil/qil.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './shared/authconfig.interceptor.spec';
-import { SigninComponent } from './component/signin/signin.component';
-import { SignupComponent } from './component/signup/signup.component';
-import { UserProfileComponent } from './component/userprofile/userprofile.component';
+import { UserprofileComponent } from './component/userprofile/userprofile.component';
+import { AuthComponent } from './auth/auth.component';
+import { RegisterComponent } from './component/signup/register.component';
+import { loginComponent } from './component/signin/login.component';
+import { AuthService } from './shared/auth.service';
+import { AuthGuard } from '@nestjs/passport';
 
 
 
@@ -63,9 +65,10 @@ import { UserProfileComponent } from './component/userprofile/userprofile.compon
     PinComponent,
     LilComponent,
     QilComponent,
-    SigninComponent,
-    SignupComponent,
-    UserProfileComponent,
+    RegisterComponent,
+    UserprofileComponent,
+    loginComponent,
+    AuthComponent,
 
   ],
   imports: [
@@ -80,13 +83,7 @@ import { UserProfileComponent } from './component/userprofile/userprofile.compon
     }),
     HttpClientModule,
   ],
-  providers:[
-    {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-    }
-  ],
+  providers:[],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
