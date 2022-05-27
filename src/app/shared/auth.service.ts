@@ -16,7 +16,6 @@ class DecodedToken {
   providedIn: 'root'
 })
 export class AuthService {
-
   private uriseg = 'http://localhost:5000/api/users';
   private decodedToken;
 
@@ -26,6 +25,7 @@ export class AuthService {
 
   public register(userData: any): Observable<any> {
     const URI = this.uriseg + '/register';
+    console.log("register complete");
     return this.http.post(URI, userData);
   }
 
@@ -51,7 +51,10 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    console.log(this.decodedToken.exp);
     return moment().isBefore(moment.unix(this.decodedToken.exp));
+  }
+
+  public getUsername(): string {
+    return this.decodedToken.username;
   }
 }

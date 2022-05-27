@@ -1,0 +1,21 @@
+version: '3'
+services:
+  playground-web-db:
+    image: mongo:4.2.2
+    environment:
+      MONGO_INITDB_DATABASE: playground-web
+    ports:
+      - 27017:27017
+  web-frontend:
+    image: web-frontend:latest
+    environment:
+      PORT: 3000
+      uriseg: http://localhost:5000/api/users
+    ports:
+      - 3000:3000
+  web-backend:
+    image: web-backend:latest
+    environment:
+      DB: mongodb://localhost:27017/angularauth
+    ports:
+      - 8080:8080

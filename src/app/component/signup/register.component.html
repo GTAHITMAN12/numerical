@@ -3,75 +3,26 @@
     <div class="col-md-5">
       <h1 class="page-title">User Registration</h1>
       <form [formGroup]="formData">
-        <div class="form-group">
-          <div *ngIf="errors.length > 0" class="alert alert-danger">
+        <div *ngIf="errors.length > 0" class="alert alert-danger">
           <ul *ngFor = "let error of errors">
               <li>{{ error }}</li>
           </ul>
           </div>
           <label for="username">Username</label>
-         <input type="text"
-
-                 name="username"
-
-                 required>
-        </div>
-        <div *ngIf="this.formData.value.username.invalid && (this.formData.value.username.dirty || this.formData.value.username.touched)"
-          class="alert alert-danger">
-          <div *ngIf="this.formData.value.username.errors.required">
-            Username is required
-          </div>
-        </div>
-
+         <input type="text" formControlName="username" name="username" required>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email"
-
-                 name="email"
-
-                 required>
+          <input type="email" name="email" formControlName="email" required>
         </div>
-        <div *ngIf="this.formData.value.email.invalid && (this.formData.value.email.dirty || this.formData.value.email.touched)"
-          class="alert alert-danger">
-          <div *ngIf="this.formData.value.email.errors.required">
-            Email is required
-          </div>
-        </div>
-
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password"
-                 class="form-control"
-
-                 name="password"
-                 required>
+          <input type="password" class="form-control" name="password" formControlName="password" required>
         </div>
-        <div *ngIf="this.formData.value.password.invalid && (this.formData.value.password.dirty || this.formData.value.password.touched)"
-          class="alert alert-danger">
-          <div *ngIf="this.formData.value.password.errors.required">
-            Password is required
-          </div>
-        </div>
-
         <div class="form-group">
           <label for="passwordConfirmation">Confirm Password</label>
-          <input type="password"
-                 class="form-control"
-
-                 name="passwordConfirmation"
-                 required>
+          <input type="password" class="form-control"formControlName="passwordConfirmation" name="passwordConfirmation" required>
         </div>
-         <div *ngIf="this.formData.value.passwordConfirmation.invalid && (this.formData.value.passwordConfirmation.dirty || this.formData.value.passwordConfirmation.touched)"
-          class="alert alert-danger">
-          <div *ngIf="this.formData.value.passwordConfirmation.errors.required">
-            Confirm Password is required
-          </div>
-        </div>
-        <button
-        (click) = "register()"
-        type="submit"
-        class="btn btn-warning"
-        [disabled] = "!formData.value.valid">Register</button>
+        <button (click) = "register()">Register</button>
       </form>
     </div>
   </div>

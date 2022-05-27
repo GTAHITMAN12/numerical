@@ -5,15 +5,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, provideRoutes } from '@angular/router';
 
 import { AuthGuard } from "./shared/auth.guard";
-import { loginComponent } from './component/signin/login.component';
+import { LoginComponent } from './component/signin/login.component';
 import { RegisterComponent } from './component/signup/register.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { AuthService } from './shared/auth.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/log-in', pathMatch: 'full' },
-  { path: 'log-in', component: loginComponent },
-  { path: 'sign-up', component: RegisterComponent },
+  {path: '', redirectTo: '/log-in', pathMatch: 'full' },
+  {path: 'log-in', component: LoginComponent },
+  {path: 'sign-up', component: RegisterComponent },
   {path:'root',component:RootAppComponent ,canActivate: [AuthGuard]},
   {path:'linear',component:LinearAppComponent ,canActivate: [AuthGuard]},
   {path:'interpotation and extrapolation',component:InterExtarComponent,canActivate: [AuthGuard]},

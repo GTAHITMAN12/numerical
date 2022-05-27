@@ -1,29 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../shared/auth.service';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
-export class loginComponent implements OnInit {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit {
+
+  loginForm!: FormGroup;
   errors: any = [];
   notify!: string;
-  constructor(
-    public fb: FormBuilder,
-    public authService: AuthService,
-    public router: Router, private route: ActivatedRoute
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required,
-      Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]],
-      password: ['', Validators.required]
-    });
-  }
+
+  constructor(private auth: AuthService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
+
   ngOnInit(): void {
+    this.initForm();
     this.route.queryParams.subscribe((params) => {
       const key1 = 'registered';
       const key2 = 'loggedOut';
@@ -36,13 +29,27 @@ export class loginComponent implements OnInit {
     });
   }
 
+  initForm(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required,
+      Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]],
+      password: ['', Validators.required]
+    });
+  }
+
   isValidInput(fieldName: string | number): boolean {
     return this.loginForm.controls[fieldName].invalid &&
       (this.loginForm.controls[fieldName].dirty || this.loginForm.controls[fieldName].touched);
   }
 
   login(): void {
-    console.log(this.loginForm.value);
+    this.errors = [];
+    this.auth.login(this.loginForm.value)
+      .subscribe((token) => {
+        this.router.navigate(['/'], { queryParams: { loggedin: 'success' } });
+       },
+        (errorResponse) => {
+          this.errors.push(errorResponse.error.error);
+        });
   }
 }
-

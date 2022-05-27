@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  formData: FormGroup;
+  formData!: FormGroup;
   errors!:any[];
   constructor(
     public fb: FormBuilder,
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
       username: [''],
       email: [''],
       password: [''],
-      confirmpassword: [''],
+      passwordConfirmation: [''],
     });
   }
 
@@ -30,14 +30,14 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  register(): void {
+  register(): void {  
     this.errors = [];
-    this.auth.register(this.formData)
-      .subscribe(() => {
-        this.router.navigate(['/auth/login'], { queryParams: { registered: 'success' } });
-       },
-        (errorResponse: { error: { error: any; }; }) => {
-          this.errors.push(errorResponse.error.error);
-        });
+    this.auth.register(this.formData.value)
+    .subscribe(() => {
+        this.router.navigate(['/sign-up'], { queryParams: { registered: 'success' } });
+      },
+      (errorResponse) => {
+        this.errors.push(errorResponse.error.error);
+      });
   }
 }

@@ -1,5 +1,3 @@
-// auth.guard.ts
-
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
@@ -24,11 +22,11 @@ export class AuthGuard implements CanActivate {
     if (this.isLoginOrRegister()) {
       return true;
     }
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/log-in']);
     return false;
   }
   private isLoginOrRegister(): boolean {
-    if (this.url.includes('/auth/login') || this.url.includes('/auth/register')) {
+    if (this.url.includes('/log-in') || this.url.includes('/sign-up')) {
       return true;
     }
     return false;

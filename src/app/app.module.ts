@@ -34,9 +34,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './component/signup/register.component';
-import { loginComponent } from './component/signin/login.component';
-import { AuthService } from './shared/auth.service';
-import { AuthGuard } from '@nestjs/passport';
+import { LoginComponent } from './component/signin/login.component';
 
 
 
@@ -67,7 +65,7 @@ import { AuthGuard } from '@nestjs/passport';
     QilComponent,
     RegisterComponent,
     UserprofileComponent,
-    loginComponent,
+    LoginComponent,
     AuthComponent,
 
   ],
