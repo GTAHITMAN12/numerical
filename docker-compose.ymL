@@ -1,9 +1,9 @@
 version: '3'
 services:
-  playground-web-db:
+  web-db:
     image: mongo:4.2.2
     environment:
-      MONGO_INITDB_DATABASE: playground-web
+      MONGO_INITDB_DATABASE: web
     ports:
       - 27017:27017
   web-frontend:

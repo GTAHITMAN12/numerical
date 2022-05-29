@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  errors: any = [];
+  errors: any = [" "];
   notify!: string;
 
   constructor(private auth: AuthService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }

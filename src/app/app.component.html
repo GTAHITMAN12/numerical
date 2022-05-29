@@ -7,16 +7,17 @@
     </div>
     <div >
       <nav>
+        <li><a routerLink="/homepage">homepage</a></li>
         <li><a routerLink="/log-in">login</a></li>
         <li><a routerLink="/sign-up">register</a></li>
         <li><a routerLink="/root">root of equation</a></li>
         <li><a routerLink="/linear">linear algibra</a></li>
         <li><a routerLink="/interpotation and extrapolation">interpotation and extrapolation</a></li>
       </nav>
-        <div *ngIf="notify" class="alert alert-success container marge">
-          {{ notify }}
+      <p class="container">home page</p>
+      <div *ngIf="notify" class="alert alert-success container marge">
+        {{ notify }}
       </div>
-      <p class="container">home page!</p>
       <router-outlet></router-outlet>
     </div>
   </body>

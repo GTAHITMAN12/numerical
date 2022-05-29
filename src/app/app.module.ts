@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphicalMethodComponent } from './component/graphical-method/graphical-method.component';
@@ -30,9 +28,9 @@ import { QinComponent } from './component/qin/qin.component';
 import { PinComponent } from './component/pin/pin.component';
 import { LilComponent } from './component/lil/lil.component';
 import { QilComponent } from './component/qil/qil.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserModule} from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
-import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './component/signup/register.component';
 import { LoginComponent } from './component/signin/login.component';
 
@@ -66,11 +64,11 @@ import { LoginComponent } from './component/signin/login.component';
     RegisterComponent,
     UserprofileComponent,
     LoginComponent,
-    AuthComponent,
-
+    
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     RootRoutingModule,
     LinearRoutingModule,
@@ -79,7 +77,7 @@ import { LoginComponent } from './component/signin/login.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
-    HttpClientModule,
+    
   ],
   providers:[],
   bootstrap: [AppComponent]

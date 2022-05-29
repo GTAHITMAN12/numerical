@@ -11,7 +11,7 @@ import { UserprofileComponent } from './component/userprofile/userprofile.compon
 import { AuthService } from './shared/auth.service';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/log-in', pathMatch: 'full' },
+  {path: 'homepage', redirectTo: '/', pathMatch: 'full' },
   {path: 'log-in', component: LoginComponent },
   {path: 'sign-up', component: RegisterComponent },
   {path:'root',component:RootAppComponent ,canActivate: [AuthGuard]},

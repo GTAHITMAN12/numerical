@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   formData!: FormGroup;
-  errors!:any[];
+  errors: any[]=[" "];
   constructor(
     public fb: FormBuilder,
     public auth: AuthService,
